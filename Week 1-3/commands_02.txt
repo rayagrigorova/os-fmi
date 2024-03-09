@@ -1,0 +1,17 @@
+1) $ find /home -mindepth 1 -type d 2>>/dev/null 
+2) $ find ~ -type f -mmin -61
+3) $ find /etc -maxdepth 2 -type f 
+4) $ find /etc -mindepth 1 -maxdepth 1 -type d 
+5) $ find ~ -type f -size +42c
+6) $ find /tmp -type f -group students -perm /022
+7) $ find ~ -type f -newer ~/practice/01/f1
+8) $ find ~ -type f -newer ~/practice/01/f3 -exec rm -i '{}' ';'
+9) $ find /bin -type f -perm 777
+10) $ find /etc -type f -perm -444 -exec cp '{}' ~/myetc ';'
+11) $ find /etc -type f -exec wc -l '{}' ';'
+12) $ chmod 435 permissions.txt 
+    $ chmod u=r,g=wx,o=rx permissions.txt 
+13) $ ln -s /etc/passwd ~/passwd_symlink
+14) $ cp /etc/services ~
+    $ cat services
+15) $ head -n 5 /etc/services 

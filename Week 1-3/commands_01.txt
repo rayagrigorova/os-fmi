@@ -1,0 +1,10 @@
+1) $ pwd
+2) $ cd ..
+3) $ pwd
+4) $ cd ~
+5) $ mkdir beg
+6) $ cd beg
+   $ cd /home/students/s0600167/beg
+  351  2024-03-09 10:56:04 mkdir -p ~/beg/one/nested
+  353  2024-03-09 10:56:48 touch ~/beg/a ~/beg/b ~/beg/c
+  357  2024-03-09 10:57:31 cp /etc/passwd ~/beg
