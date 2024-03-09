@@ -5,6 +5,10 @@
 5) $ mkdir beg
 6) $ cd beg
    $ cd /home/students/s0600167/beg
-  351  2024-03-09 10:56:04 mkdir -p ~/beg/one/nested
-  353  2024-03-09 10:56:48 touch ~/beg/a ~/beg/b ~/beg/c
-  357  2024-03-09 10:57:31 cp /etc/passwd ~/beg
+7) $ mkdir -p ~/beg/one/nested
+8) $ touch ~/beg/a ~/beg/b ~/beg/c
+9) $ cp /etc/passwd ~/beg
+10) $ mv ~/beg/passwd ~/beg/my_passwd
+11) $ rm -r ~/beg/one/nested/
+12) $ rm -r ~/beg
+13) $ cp /etc/passwd ~/passwd
