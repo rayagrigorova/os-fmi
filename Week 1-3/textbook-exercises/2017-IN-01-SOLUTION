@@ -1,0 +1,2 @@
+$ find / -user $(whoami) 2>>/dev/null >output_file.txt
+$ wc -l output_file.txt 

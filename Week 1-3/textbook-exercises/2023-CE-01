@@ -1,0 +1,9 @@
+Зад. 15 2023-CE-01
+Напишете серия от команди, която извежда пътищата до всички файлове (из цялата файлова система),
+чиито собственик е текущият потребител и имат име, завършващо на . b l e n d < ч и с л о > .
+Примерен изход:
+/ h o m e / s t u d e n t s / i v a n / s c e n e s / l a n d s c a p e . b l e n d 1
+/ h o m e / s t u d e n t s / i v a n / s c e n e s / l a n d s c a p e . b l e n d 2 6
+/ h o m e / s t u d e n t s / i v a n / s c e n e s / l a n d s c a p e . b l e n d 4 2
+/ h o m e / s t u d e n t s / i v a n / . l o c a l / s h a r e / T r a s h / l e w d . b l e n d 1
+/ t m p / b a b a . b l e n d 5
