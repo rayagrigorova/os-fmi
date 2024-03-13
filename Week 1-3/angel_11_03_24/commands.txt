@@ -1,0 +1,21 @@
+  725  2024-03-11 16:34:27 cp /etc/passwd ~/my_passwd
+  727  2024-03-11 16:38:38 find /home -mindepth 1 -maxdepth 1 -type d 2>/dev/null
+  730  2024-03-11 16:46:55 find ~ -mmin -60
+  732  2024-03-11 16:47:28 find ~ -type f -mmin -60
+  734  2024-03-11 16:47:58 cp /etc/services my_services
+  735  2024-03-11 16:48:01 cat my_services 
+  737  2024-03-11 16:48:42 ln -s /etc/passwd ~/passwd_symlink
+  742  2024-03-11 16:59:44 find /etc -maxdepth 2 -type f 
+  747  2024-03-11 17:01:35 cat /etc/services | head -n 5
+  731  2024-03-11 17:23:14 find /etc -mindepth 1 -maxdepth 1 -type d 
+  736  2024-03-11 17:24:43 find /etc -mindepth 1 -maxdepth 1 -type d | tail >log_file.txt
+  725  2024-03-11 17:26:30 find ~ -type f -size +42c
+  730  2024-03-11 17:32:51 find /tmp -group students -type f '(' -perm -g=w -o -perm -o=w ')' 2>/dev/null
+  734  2024-03-11 17:37:01 find / -type f -newer /tmp/baba 2>/dev/null
+  745  2024-03-11 17:44:02 find . -newer foo -exec rm -i {} ';'
+  752  2024-03-11 17:46:27 find /bin -type f -perm 777
+  754  2024-03-11 17:47:47 find /bin -type f -perm a=rwx
+  758  2024-03-11 17:49:39 find -L /bin -type f -perm a=rwx
+  762  2024-03-11 17:57:46 find /etc -type f -perm -444 -exec cp '{}' ~/myetc ';'
+  781  2024-03-11 18:00:42 tar -cf myetc.tar myetc
+  788  2024-03-11 18:03:39 ls -l
