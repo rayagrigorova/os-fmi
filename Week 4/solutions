@@ -1,0 +1,76 @@
+=== Sort 
+
+1) $ cat /etc/passwd | sort -t ':' -k 3
+2) $ cat /etc/passwd | sort -t ':' -k 3 -n
+
+=== Cut: 
+
+1) $ cat /etc/passwd | cut -d ':' -f 1,5
+2) $ cat /etc/passwd | cut -d ':' -f 1,6
+3) $ cat /etc/passwd | cut -d ':' -f 2 | cut -d '/' -f 1-
+
+=== wc:
+
+1) $ cat /etc/passwd | wc -c
+2) $ cat /etc/passwd | wc -m 
+3) $ cat /etc/passwd | wc -l 
+
+=== head,tail, +++ pipes:;
+
+1) 
+$ cat /etc/passwd | head -n 12
+$ cat /etc/passwd | head -c 26
+$ cat /etc/passwd | head -n -4
+$ cat /etc/passwd |  tail -n 17
+$ cat /etc/passwd | head -n 151 | tail -n 1 
+$ cat /etc/passwd | head -n 13 | tail -n 1 | tr -d '\n' | tail -c 4
+
+2) 
+$ df -P >output_file.txt
+$ cat output_file.txt | tail -n +2 | tr -s ' ' | sort -n -k 2
+$ cat output_file.txt | tail -n +2 | sort -n -k 2
+
+=== redirects + tr ;
+
+1) 
+$ cat /etc/passwd | cut -d ':' -f 1 >~/users
+
+2)
+$ mkdir ~/dir5
+$ touch ~/dir5/file{1..3}
+
+* $ find ~/dir5 -type f -exec wc -lwm '{}' ';' или $ wc -lwm ~/dir5/file{1..3}
+* $ cat ~/dir5/file{1..3} | wc -lm 
+* $ cat ~/dir5/file{1..3} | wc -l
+
+3)
+$ cat ~/dir5/file{1..3} | fold -w 1 | sort | uniq -c | tr -s ' ' | sort -nr
+
+4) 
+$ cat ~/dir5/file{1,2,3} >new_file.txt
+
+5) 
+$ touch ~/dir5/file5
+$ fortune > ~/dir5/file5
+$ cat ~/dir5/file5 | tr [:upper:] [:lower:] >> ~/dir5/file2
+
+=== Shell substitution + grep ;
+
+1) 
+$ grep $(whoami) /etc/passwd
+$ grep -B 2 $(whoami) /etc/passwd
+$ grep -B 2 -A 3 $(whoami) /etc/passwd
+$ grep -B 2 $(whoami) /etc/passwd | head -n 1
+
+2) 
+$ grep -v "/bin/bash" /etc/passwd | wc -l
+
+3)
+$ grep $(whoami) /etc/passwd | cut -d ':' -f 4
+
+4)
+$ grep "#" /etc/services | wc -l
+
+6)
+$ find / -maxdepth 3 -type d 2>temp.txt
+$ cat temp.txt | cut -d ':' -f 2 | tr -d [:blank:] >forbidden.txt
