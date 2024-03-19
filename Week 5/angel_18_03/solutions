@@ -1,0 +1,33 @@
+$ grep "^$(whoami):" /etc/passwd
+$ grep -A 2 "^$(whoami):" /etc/passwd
+$ grep -B 2 -A 3 "^$(whoami):" /etc/passwd
+$ grep -B 2 "^$(whoami):" /etc/passwd | head -n 1 
+$ history | tail -n 2 | heead -n 1 >>solutions 
+$ history | tail -n 2 | heead -n 1 >>solutions 
+$ cat data | wc -l 
+$ cat data | head -n 3 | tail -n 1 
+$ cat data | tr -s ' ' | rev | cut -d ' ' -f 1 | rev
+$ grep -o -E " [^ ]*$" data 
+$ grep -o -E " [^ ]*$" data | tail -n 1
+$ cat data | tr -s ' ' | grep -E "([^ ]* ){3,}" 
+$ grep -E 'Beth' data | wc -l
+$ cat data | tr -s  ' ' | sort -g -r -k 3 | head -n 1
+$ cat /etc/passwd | grep -E "([^:]*:){4,4}[а-яА-Я]* [а-яА-Я]{,6}[^а-яА-Я]"
+
+AWK
+$ cat /srv/fmi-os/exercises/data/emp.data | awk '$1 == "Mark"'
+$ cat /srv/fmi-os/exercises/data/emp.data | awk '$2 > 4"'
+$ cat /srv/fmi-os/exercises/data/emp.data | awk '$2 > 4'
+$ cat /srv/fmi-os/exercises/data/emp.data | awk '$2 > 4 {print $0}'
+$ cat /srv/fmi-os/exercises/data/emp.data | awk '$2 > 4 {print $1}'
+$ cat /srv/fmi-os/exercises/data/emp.data | awk '$2 > 4 {print $1} $2 <= 4 {print "no"}'
+$ cat /srv/fmi-os/exercises/data/emp.data | awk '$2 > 4 {print $1} $2 <= 4 {print "no"} BEGIN {print "foo"} END {print "bar"}'
+$ cat /srv/fmi-os/exercises/data/emp.data | awk '{p++}' BEGIN {p = 0} END {print p}
+$ cat /srv/fmi-os/exercises/data/emp.data | awk 'BEGIN {sum = 0 } {sum +=  $2 + $3} END {print sum}'
+
+$ cat /etc/services | grep -E '#' | wc -l 
+$ find /bin/ -executable -type f -exec file {} ';' | grep -E 'shell script' | wc -l
+$ find /bin/ -executable -type f -exec file {} ';' | grep -E 'ASCII text' | wc -l
+ 1810  2024-03-18 17:47:28 cat /etc/services | tr [:space:] '\n' | tr [:lower:] [:upper:] | grep -E '^[[:alpha:]]+' | sort | uniq -c
+ 1812  2024-03-18 17:47:58 cat /etc/services | tr [:space:] '\n' | tr [:lower:] [:upper:] | grep -E '^[[:alpha:]]+' | sort | uniq -c | sort -n -r 
+ 1816  2024-03-18 17:50:33 cat /etc/services | grep -o -E '[a-zA-Z]+' | tr [:lower:] [:upper:] | sort | uniq -c | sort -n -r | head -n 10

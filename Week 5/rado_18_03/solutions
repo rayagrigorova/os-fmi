@@ -1,0 +1,25 @@
+$ sort -t ':' -k 3 /etc/passwd 
+$ sort -t ':' -k 3 -n  /etc/passwd 
+
+$ cat /etc/passwd | cut -d ':' -f 1,5
+
+$ cut -c 2-6 /etc/passwd
+
+$ cut -d ':' -f 1,6 /etc/passwd
+
+$ cut -d '/' -f 2 /etc/passwd
+
+$ wc -c /etc/passwd
+$ wc -m /etc/passwd
+$ wc -l /etc/passwd
+$ head -n 12 /etc/passwd
+$ head -c 26 /etc/passwd
+$ head -n -4 /etc/passwd
+$ tail -n 17 /etc/passwd
+$ head -n 13 /etc/passwd | tail -n 1 | tail -c 5 | head -c 4
+$ df -P >df.out
+$ tail -n +2 df.out | sort -t ' ' -k 2 -n
+$ cut -d ':' -f 1 /etc/passwd
+$ cut -d ':' -f 1 /etc/passwd > users
+$ cut -d ':' -f 1 /etc/passwd | tr [:lower:] [:upper:]
+$ cut -d ':' -f 1 /etc/passwd | tr '[:lower:]' '[:upper:]'
