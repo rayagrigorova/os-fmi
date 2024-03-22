@@ -1,0 +1,6 @@
+$ cat who.txt | grep -E --color '\<human\>'
+$ cat /etc/passwd | grep "^$(whoami):"
+$ cat /etc/passwd | grep -B 2 "^$(whoami):"
+$ cat /etc/passwd | grep -E -v ':/bin/bash$'
+
+$ cat /tmp/emails_valid.txt | grep -E '^[a-zA-Z_0-9-]+(\.[a-zA-Z_0-9-]+)*@([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z0-9]+$' | wc -l

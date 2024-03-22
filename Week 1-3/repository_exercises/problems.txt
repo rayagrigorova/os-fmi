@@ -1,0 +1,54 @@
+File name: /srv/fmi-os/exercises/02.commands/02-a-1200.txt
+Отпечатайте имената на всички директории в директорията /home.
+File name: /srv/fmi-os/exercises/02.commands/02-a-5402.txt
+Изведете всички обикновени ("regular") файлове, които само преките поддиректории на /etc съдържат
+File name: /srv/fmi-os/exercises/02.commands/02-a-5000.txt
+Копирайте /etc/services в home директорията си. Прочетете го с командата cat. (Ако този файл го няма, прочетете с cat произволен текстов файл напр. /etc/passwd)
+File name: /srv/fmi-os/exercises/02.commands/02-a-5401.txt
+Изведете само първите 5 реда от /etc/services
+File name: /srv/fmi-os/exercises/02.commands/02-a-4100.txt
+За да намерите какво сте правили днес: намерете всички файлове в home директорията ви, които са променени в последния 1 час.
+File name: /srv/fmi-os/exercises/02.commands/02-a-5400.txt
+Изведете всички обикновени ("regular") файлове, които /etc и нейните преки поддиректории съдържат
+File name: /srv/fmi-os/exercises/02.commands/02-a-5500.txt
+Създайте файл, който да съдържа само последните 10 реда от изхода на 02-a-5403
+File name: /srv/fmi-os/exercises/02.commands/02-a-6000.txt
+Намерете файловете в /bin, които могат да се четат, пишат и изпълняват от всички.
+File name: /srv/fmi-os/exercises/02.commands/02-a-5504.txt
+Изведете всички обикновени файлове в директорията /tmp които са от вашата група, които имат write права за достъп за група или за останалите(o=w)
+File name: /srv/fmi-os/exercises/02.commands/02-a-5506.txt
+Изтрийте файловете в home директорията си по-нови от practice/01/f3 (подайте на rm опция -i за да може да изберете само тези които искате да изтриете).
+File name: /srv/fmi-os/exercises/02.commands/02-a-0500.txt
+Направете директория practice-test в home директорията ви. Вътре направете директория test1. Можете ли да направите тези две неща наведнъж? Разгледайте нужната man страница. След това създайте празен файл вътре, който да се казва test.txt, преместете го в practice-test чрез релативни пътища.
+File name: /srv/fmi-os/exercises/02.commands/02-a-5501.txt
+Изведете обикновените файлове по-големи от 42 байта в home директорията ви
+File name: /srv/fmi-os/exercises/02.commands/02-a-5200.txt
+Създайте symlink на файла /etc/passwd в home директорията ви (да се казва например passwd_symlink).
+File name: /srv/fmi-os/exercises/02.commands/02-a-0601.txt
+Нека файлът f2 бъде преместен в директория dir2, намираща се във вашата home директория и бъде преименуван на numbers.
+File name: /srv/fmi-os/exercises/02.commands/02-a-0100.txt
+Направете копие на файла /etc/passwd във вашата home директория под името my_passwd.
+File name: /srv/fmi-os/exercises/02.commands/02-b-4000.txt
+Копирайте най-малкия файл от тези, намиращи се в /etc, в home директорията си.
+File name: /srv/fmi-os/exercises/02.commands/02-a-5505.txt
+Изведете всички файлове, които са по-нови от practice/01/f1 ( би трябвало да е създаден като част от по-ранна задача ).
+File name: /srv/fmi-os/exercises/02.commands/02-a-9500.txt
+Използвайки едно извикване на командата find, отпечатайте броя на редовете във всеки обикновен файл в /etc директорията.
+File name: /srv/fmi-os/exercises/02.commands/02-a-8000.txt
+Копирайте всички файлове от /etc, които могат да се четат от всички, в
+директория myetc в home директорията ви. Направете такава, ако нямате.
+File name: /srv/fmi-os/exercises/02.commands/02-a-5403.txt
+Изведете всички преки поддиректории на /etc
+File name: /srv/fmi-os/exercises/02.commands/02-a-0600.txt
+Създайте директорията practice/01 във вашата home директория.
+Създайте 3 файла в нея - f1, f2, f3.
+Копирайте файловете f1, f2, f3 от директорията practice/01/ в директория dir1, намираща се във вашата home директория. Ако нямате такава, създайте я.
+File name: /srv/fmi-os/exercises/02.commands/02-a-9000.txt
+от предната задача: когато вече сте получили myetc с файлове, архивирайте
+всички от тях, които започват с 'c' в архив, който се казва c_start.tar
+
+изтрийте директорията myetc и цялото и съдържание
+
+изтрийте архива c_start.tar
+File name: /srv/fmi-os/exercises/02.commands/02-a-4000.txt
+Създайте файл permissions.txt в home директорията си. За него дайте единствено - read права на потребителя създал файла, write and exec на групата, read and exec на всички останали. Направете го и с битове, и чрез "буквички".

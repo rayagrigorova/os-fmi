@@ -1,0 +1,61 @@
+$ cat /etc/passwd | grep tgg
+$ cat /etc/passwd | grep --color s0600167
+$ cat /etc/passwd | grep --color -o s0600167
+$ cat text.txt | grep -i People
+$ cat text.txt | grep -n is | cut -d ':' -f 1
+$ cat text.txt | grep -A 1 who
+$ cat text.txt | grep -B 1 who
+$ grep -E 'the' text.txt 
+$ grep -E 'the$' text.txt 
+$ grep -E '[xyz]' text.txt 
+$ grep -E '[^xyz]' text.txt 
+$ grep -E --color '^[^xyz]*$' text.txt 
+$ grep -E --color -v '[xyz]' text.txt 
+
+
+// Solution to problem 5002
+$ cat /etc/passwd | cut -d ':' -f 5 | cut -d ',' -f 1
+$ cat /etc/passwd | cut -d ':' -f 5 | cut -d ',' -f 1 | grep -E '^[^ ]* .{7,}$'
+$ cat /etc/passwd | cut -d ':' -f 5 | cut -d ',' -f 1 | grep -E '^[^ ]* [^ ]{7,}$'
+
+// 5003
+$ cat /etc/passwd | cut -d ':' -f 5 | cut -d ',' -f 1 | grep -E '^[^ ]* [^ ]{,7}$'
+$ cat /etc/passwd | grep -E --color '^([^:]*:){4}[^ ]* [^,]{,7},'
+
+// 2023-CE-01
+$ find . -regextype egrep -type f -user "$(whoami)" -regex '.*\.blend[0-9]+$'
+$ find . -type f -user "$(whoami)" | grep -E '\.blend[0-9]+$'
+
+// sed
+$ cat text.txt | sed 's/is/HELLO/'
+$ echo 'to make bannana shake, we start by blending four bananas' | sed 's/bannana/*/'
+$ cat text.txt | sed -E 's/[aeoui]{2,}/-/'
+$ cat text.txt | sed -E 's/[aeoui]{2,}/_/'
+$ cat text.txt | sed -E 's/^/PREFIX:/'
+
+
+$ cat /srv/fmi-os/exercises/data/mypasswd.txt | cut -d ':' -f 6 |  grep -E '^/home/SI' | sed -E 's/^\/home\/SI\/s([0-9]+)/\1/'
+$ cat /srv/fmi-os/exercises/data/mypasswd.txt | cut -d ':' -f 6 |  grep -E '^/home/SI' | sed -E 's/^\/home\/SI\/s([0-9]+)/\1/' | sort -n > output.txt
+$ cat /srv/fmi-os/exercises/data/mypasswd.txt | cut -d ':' -f 6 |  grep -E '^/home/SI' | grep -o -E '[0-9]+$'
+
+// Още sed 
+$ cat text.txt | sed '5d'
+$ cat text.txt | sed '/scientists/d'
+$ cat text.txt | sed 'p'
+$ cat text.txt | sed '5p'
+
+// AWK !!
+$ df -P | awk '{print $1}'
+$ df -P | awk '{print $2}'
+$ df -P | awk '{print $1, $2}'
+$ df -P | awk '{print $2, $1}'
+ 2291  2024-03-22 11:48:11 df -P | tail -n +2 | awk '$2 < 1000000'
+ 2293  2024-03-22 11:49:21 df -P | tail -n +2 | awk '$2 < 1000000 {print $6}'
+ 2295  2024-03-22 11:50:46 df -P | tail -n +2 | awk '$2 < 1000000 {print $NF}'
+ 2299  2024-03-22 11:53:59 cat /etc/passwd | awk -v 'FS=:' -v 'OFS=:' '{print $3, $1}'
+ 
+
+ // 2019-SE-01
+ 2307  2024-03-22 11:58:45 cat planets.txt | tail -n +2 | sort -t ';' -k 3 -n | tail -n 1 | cut -d ';' -f 2 
+ 2309  2024-03-22 12:01:32  cat planets.txt " tail -n +2 | sort -t ';' -k 3 -n | awk -v 'FS=;' '$2 == "I" {print $1 "\t" $4}' | head -n 1
+ 2311  2024-03-22 12:05:05  cat planets.txt " tail -n +2 | sort -t ';' -k 3 -n | awk -v 'FS=;' '$2 == "I" {print $1 "\t" $4}' | head -n 1

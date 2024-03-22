@@ -1,0 +1,30 @@
+People in general do not willingly read if they have anything else to
+amuse them.
+		-- S. Johnson
+Rube Walker: "Hey, Yogi, what time is it?"
+Yogi Berra:  "You mean now?"
+Use the Force, Luke.
+For good, return good.
+For evil, return justice.
+People love high ideals, but they got to be about 33-percent plausible.
+		-- The Best of Will Rogers
+Too much of everything is just enough.
+		-- Bob Wier
+	better !pout !cry
+	better watchout
+	lpr why
+	santa claus < north pole > town
+
+	cat /etc/passwd > list
+	ncheck list
+	ncheck list
+	cat list | grep naughty > nogiftlist
+	cat list | grep nice > giftlist
+	santa claus < north pole > town
+
+	who | grep sleeping
+	who | grep awake
+	who | grep 'bad\|good'
+	for (goodness sake) {
+		be good
+	}
