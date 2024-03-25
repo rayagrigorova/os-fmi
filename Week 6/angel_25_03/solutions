@@ -1,0 +1,11 @@
+1.
+$ cat planets.txt | tail -n +2 | sort -t ';' -k 3 -r -n | head -n 1
+$ cat planets.txt | tail -n +2 | sort -t ';' -k 3,3 -g | tail -n 1 | awk -F ';' '{print $2}'
+$ cat planets.txt | tail -n +2 | sort -t ';' -k 3,3 -g | tail -n 1 | cut -d ';' -f 2
+$ cat /tmp/planets.txt | tail -n +2 | awk -F ';' -v type="$(cat planets.txt | tail -n +2 | sort -t ';' -k 3,3 -g | tail -n 1 | cut -d ';' -f 2)" '$2 = type'
+$ cat /tmp/planets.txt | tail -n +2 | grep -E "^[^;]*;$(cat planets.txt | tail -n +2 | sort -t ';' -k 3,3 -g | tail -n 1 | cut -d ';' -f 2);"
+$ cat /tmp/planets.txt | tail -n +2 | grep -E "^[^;]*;$(cat planets.txt | tail -n +2 | sort -t ';' -k 3,3 -g | tail -n 1 | cut -d ';' -f 2);" | sort -t ';' -k 3,3 -g | head -n 1 | awk -F ';' '{print $1"\t"$4}'
+$ cat /tmp/planets.txt | tail -n +2 | grep -E "^[^;]*;$(cat planets.txt | tail -n +2 | sort -t ';' -k 3,3 -g | tail -n 1 | cut -d ';' -f 2);" | sort -t ';' -k 3,3 -g | head -n 1 | cut -d ';' -f 1,4 | tr ';' '\t'
+
+
+2. 

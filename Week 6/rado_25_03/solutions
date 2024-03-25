@@ -1,0 +1,51 @@
+$ cat /etc/passwd | cut -d : -f 5 | cut -d, -f1 | grep -E ' [а-яA-S]{,7}$'
+$ cat /etc/passwd | cut -d : -f 5 | cut -d, -f1 | grep -E ' [а-яA-S]{7,}$'
+
+$ cat /etc/passwd | cut -d : -f 5 | cut -d, -f1 | grep -E ' [а-яA-S]{7,}$' > 5003.out
+$ cat /etc/passwd | grep -f 5003.out 
+
+$ cat /etc/passwd | grep -f <(cat /etc/passwd | cut -d : -f 5 | cut -d, -f1 | grep -E ' [а-яA-S]{7,}$')
+
+
+# AWK 
+# 03-a-6000.txt
+
+# Subtask 1
+$ cat ~/emp.data | awk 'END {print NR}'
+$ cat ~/emp.data | awk 'BEGIN {count = 0} {count += 1 } END {print count}'
+
+# Subtask 2
+$ cat ~/emp.data | awk 'NR == 3{print $0}'
+
+# Subtask 3
+$ cat ~/emp.data | awk '{print $NF}'
+
+# Subtask 4
+$ cat ~/emp.data | awk 'END {print $NF}'
+
+# Subtask 5
+$ cat ~/emp.data | awk 'END {print $NF}'
+
+# Subtask 6
+$ cat ~/emp.data | awk 'NF > 4'
+
+# Subtask 7
+$ cat ~/emp.data | awk 'BEGIN {count = 0} {count += NF} END {print count}'
+$ cat ~/emp.data | awk ' {count += NF} END {print count}'
+
+# Subtask 8
+$ cat ~/emp.data | awk 'BEGIN {count = 0} /Beth/{count += 1} END {print count}'
+
+
+# Subtask 11
+$ cat ~/emp.data | awk '/^.{18,}$/'
+ 2762  2024-03-25 11:52:27 cat ~/emp.data | awk 'length($0) > 17'
+
+ # Subtask 12
+$ cat ~/emp.data | awk '{print NF, $0}'
+$ cat ~/emp.data | awk '{print $2, $1}'
+$ cat ~/emp.data | awk 'BEGIN {swap = 0} {swap = $1; $1 = $2; $2 = swap; print $0} '
+$ cat ~/emp.data | awk ' {$1 = NR; print $0} '
+$ cat ~/emp.data | awk '{$2=""; print $0} '
+$ cat ~/emp.data | awk '{print $2 + $3} '
+$ cat ~/emp.data | awk '{sum = $2 + $3} {globalSum += sum} END {print globalSum} '
