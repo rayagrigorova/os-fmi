@@ -111,22 +111,31 @@ $ sed -i -E 's/[a-z]/\U&/g' file2
 $ sed -i 's/1//g' file3
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-4003.txt <==
+$ cat file{1..3} | fold -w 1 | sort | uniq -c | tr -s ' ' | sort -nr
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-4004.txt <==
+$ cat file{1..3} >concatenated.out
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-4005.txt <==
+$ cat file1 | tr '[A-Z]' '[a-z]' >translated_file1
 
-==> /srv/fmi-os/exercises/03.pipes/03-b-5200.txt <==
+==> /srv/fmi-os/exercises/03.pipes/03-b-5200.txt<==
+$ cat /etc/passwd | tr -d 'aа' | wc -m
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-5300.txt <==
+$ cat /etc/passwd | cut -d ':' -f 1 | fold -w 1 | sort | uniq | wc -l
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-5400.txt <==
+$ grep -v -E 'ов' /etc/passwd
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-6100.txt <==
+$ cat /etc/passwd | head -n 46 | tail -n +28 | cut -d ':' -f 3 | sed -E 's/.*([0-9])/\1/'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-6700.txt <==
+$ find . -readable -type f -printf '%M %p\n'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-6900.txt <==
+$ find ~ -type f -printf '%T@ %p\n' | sort -n -r | head -n 10 | cut -d ' ' -f 2
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-7000.txt <==
 
