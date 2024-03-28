@@ -136,16 +136,24 @@ $ find . -readable -type f -printf '%M %p\n'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-6900.txt <==
 $ find ~ -type f -printf '%T@ %p\n' | sort -n -r | head -n 10 | cut -d ' ' -f 2
+$ find ~ -type f -printf '%A@ %p\n' | sort -n -r | head -n 10 | cut -d ' ' -f 2
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-7000.txt <==
+$ find /usr/include -name '*.c' -o -name '*.h' | wc -l
+$ find /usr/include -name '*.c' -o -name '*.h' -exec wc -l {} ';' | awk 'BEGIN {sum=0} {sum += $1} END{print sum}'
+$ find /usr/include -name '*.c' -o -name '*.h' -exec wc -l {} ';' 
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-7500.txt <==
+$ cat /etc/services | tr -s '[:blank:]' '\n' | grep -E '^[a-zA-Z]+$' | sort | uniq -c | tr -s ' ' | sort -n -r | head -n 10
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-8000.txt <==
+$ cat /srv/fmi-os/exercises/data/mypasswd.txt | grep -E --color '^s[0-9]+:([a-zA-Z0-9, ]+:){4}\/home\/SI(\/[a-zA-Z0-9._-]+){1,}:(\/[a-zA-Z0-9._-]+)*' | cut -d ':' -f 1 | grep -o -E '[0-9]+' >
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-8500.txt <==
+$ cat /etc/passwd | cut -d ':' -f 4 | awk -v my_group="$(grep -E "^$(whoami):" /etc/passwd | cut -d ':' -f 4)" '$0 == my_group{print "Hello, "my_group" - I am here!"} $0 != my_group {print "Hello, "$0}'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-8600.txt <==
+$ find /usr -name '*.sh' -type f -exec head -n 1 {} ';' | grep -E --color '#![[:blank:]]*(\/[a-zA-Z0-9._-]*)*' | sed -E 's/#![[:blank:]]*((\/[a-zA-Z0-9._-]*)*).*/\1/' | sort -r | uniq -c | head -n 1
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-8700.txt <==
 
@@ -182,4 +190,5 @@ $ find ~ -type f -printf '%T@ %p\n' | sort -n -r | head -n 10 | cut -d ' ' -f 2
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9400.txt <==
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9500.txt <==
+
 
