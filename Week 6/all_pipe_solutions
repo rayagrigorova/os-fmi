@@ -1,36 +1,87 @@
 ==> /srv/fmi-os/exercises/03.pipes/03-a-0200.txt <==
+$ sort -t ':' -k 3,3 /etc/passwd
 
 ==> /srv/fmi-os/exercises/03.pipes/03-a-0201.txt <==
+$ sort -n -t ':' -k 3 /etc/passwd
 
 ==> /srv/fmi-os/exercises/03.pipes/03-a-0210.txt <==
+$ cut -d ':' -f 1,5 /etc/passwd
+$ cat /etc/passwd | awk -v 'FS=:' '{print $1,$5}'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-a-0211.txt <==
+$ cat /etc/passwd | tr -d '\n' | cut -c 2-6 
 
 ==> /srv/fmi-os/exercises/03.pipes/03-a-0212.txt <==
+$ cut -d ':' -f 1,6 /etc/passwd
+$ cat /etc/passwd | awk -F ':' '{print $1, $6}'
+$ cat /etc/passwd | awk -F ':' -v 'OFS=''' '{print $1, $6}'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-a-0213.txt <==
+$ cut -d ':' -f 2 /etc/passwd | cut -d '/' -f 2 
 
 ==> /srv/fmi-os/exercises/03.pipes/03-a-1500.txt <==
+$ wc -c /etc/passwd
+$ wc -m /etc/passwd
+$ wc -l /etc/passwd
 
 ==> /srv/fmi-os/exercises/03.pipes/03-a-2000.txt <==
+$ head -n 12 /etc/passwd
+$ head -c 26 /etc/passwd
+$ head -n -4 /etc/passwd
+$ tail -n 17 /etc/passwd
+$ head -n 151 /etc/passwd | tail -n 1 
+$ head -n 13 /etc/passwd | tail -n 1 | tr -d '\n' | tail -c 4
 
 ==> /srv/fmi-os/exercises/03.pipes/03-a-3000.txt <==
+$ df -P >~/result_file
+$ head -n 13 /etc/passwd | tail -n 1 | tr -d '\n' | tail -c 4
 
 ==> /srv/fmi-os/exercises/03.pipes/03-a-3100.txt <==
+$ cut -d ':' -f 1 /etc/passwd >>~/users
 
 ==> /srv/fmi-os/exercises/03.pipes/03-a-3500.txt <==
+$ cut -d ':' -f 1 /etc/passwd | tr '[:lower:]' '[:upper:]'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-a-5000.txt <==
+$ grep -E "^$(whoami):" /etc/passwd
+$ grep -B 2 -E "^$(whoami):" /etc/passwd
+$ grep -B 2 -A 3 -E "^$(whoami):" /etc/passwd
+$ grep -B 2 -E "^$(whoami):" /etc/passwd | head -n 1
 
 ==> /srv/fmi-os/exercises/03.pipes/03-a-5001.txt <==
+$ grep -v -E '^[a-zA-Z0-9а-ЯА-Я]*:([a-zA-Z0-9а-яА-Я, /-]*:){5}\/bin\/bash' /etc/passwd | wc -l
+$ cut -d ':' -f 7 /etc/passwd | grep -v -E '\/bin\/bash$' | wc -l
+$ awk -F ':' 'BEGIN {count=0} $NF != "/bin/bash" {count++} END{print count}' /etc/passwd
 
 ==> /srv/fmi-os/exercises/03.pipes/03-a-5002.txt <==
+$ cut -d ':' -f 5 /etc/passwd | grep -o -E '[a-zA-ZА-Яа-я-]+ [a-zA-ZА-Яа-я-]{7,}'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-a-5003.txt <==
+$ cut -d ':' -f 5 /etc/passwd | grep -o -E '[a-zA-ZА-Яа-я-]+ [a-zA-ZА-Яа-я-]{,7}'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-a-5004.txt <==
+$ grep "$(cut -d ':' -f 5 /etc/passwd | grep -E --color '^([^:]*:){4}[a-zA-ZА-Яа-я-]+ [a-zA-ZА-Яа-я-]{,7}[^:]*:([^:]:){2}$')" /etc/passwd
 
 ==> /srv/fmi-os/exercises/03.pipes/03-a-6000.txt <==
+$ awk 'END{print NR}' emp.data 
+$ awk 'NR == 3{print $0}' emp.data 
+$ cat emp.data | awk '{print $NF}'
+$ cat emp.data | awk 'END {print $NF}'
+$ cat emp.data | awk 'NF > 4 {print $0}'
+$ cat emp.data | awk '$NF > 4{print $0}'
+$ cat emp.data | awk 'BEGIN {count=0} {count+=NF} END{print count}'
+$ cat emp.data | awk 'BEGIN {count=0} /Beth/{count++} END {print count}' 
+$ grep -E 'Beth' emp.data | wc -l
+$ cat emp.data | awk -v OFS='\t' 'NR == 1 || $3 > max {max=$3;max_row=$0} END{print max, max_row}'
+$ cat emp.data | awk 'NF >= 1{print $0}'
+$ cat emp.data | awk 'length($0) > 17{print $0}'
+$ cat emp.data | awk -v OFS='\t' '{print NF, $0}'
+$ cat emp.data | awk '{print $2, $1}'
+$ cat emp.data | awk '{temp=$1;$1=$2;$2=temp;print$0}'
+$ cat emp.data | awk '{$1=NR; print$0}'
+$ cat emp.data | awk '{$2=""; print $0}'
+$ cat emp.data | awk '{print $2 + $3}'
+$ cat emp.data | awk 'BEGIN {sum=0}{sum +=$2 + $3} END {print sum}'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-0300.txt <==
 
