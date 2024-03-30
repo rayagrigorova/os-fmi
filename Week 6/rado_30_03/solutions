@@ -1,0 +1,47 @@
+$ echo "baba" | sed 's/b/a/'
+$ echo "baba" | sed 's/b/a/g'
+$ echo "baba" | sed 's/.$/C/g'
+
+# 03-b-9100
+$ tar -xf songs.tar.gz 
+$ echo "asdfasrxas" | sed -E 's/as(.*)as(.*)as/!\1!\2/g'
+$ find . -type f | sed -E 's/.*- (.*)\(.*/\1/g'
+$ find . -type f | sed -E 's/.*- (.*) \(.*/\1/g'
+$ find . -type f | sed -E 's/(.*) - (.*) \((.*)\).*/\1/g'
+$ find . -type f |  sed -E 's/\.\/(.*) - (.*) \((.*)\).*/\1/g'
+$ find . -type f |  sed -E 's|\.\/(.*) - (.*) \((.*)\).*|\1|g'
+$ find . -type f |  sed -E 's|\.\/(.*) - (.*) \((.*)\).*|\2|g'
+$ find . -type f |  sed -E 's|\.\/(.*) - (.*) \((.*)\).*|\3|g'
+$ find . -type f |  sed -E 's|\.\/(.*) - (.*) \((.*)\).*|\2|g' | sed 's/ /_/g'
+$ find . -type f |  sed -E 's|\.\/(.*) - (.*) \((.*)\).*|\2|g' | sed 's/ /_/g' | sed 's/.*/\L&/g'
+$ find . -type f |  sed -E 's|\.\/(.*) - (.*) \((.*)\).*|\2|g' | sed 's/ /_/g' | sed 's/.*/\U&/g'
+$ find . -type f |  sed -E 's|\.\/(.*) - (.*) \((.*)\).*|\3|g' | sed -E 's/(.*), (.*)/\2 \1/g' | sort -n | cut -d ' ' -f 2-
+
+
+# xargs 
+$ cat file | sort | uniq -c
+$ cat file | sort | uniq -c | head -n 1 | xargs
+$ cat file | sort | uniq -c | head -n 1 | xargs echo 
+$ cat file | sort | uniq -c | xargs echo 
+$ cat file | sort | uniq -c | xargs -L 1
+$ find temp -type f | xargs -I "X" echo "XX"
+$ find temp -type f | xargs -I "X" cp X X_copy
+
+
+# ps 
+$ ps -e -o comm= | head
+$ ps -e -o comm=,etimes=
+$ ps -e -o comm,etimes
+$ ps -e -o comm,etimes | head
+$ ps -e -o comm=,etimes= ketimes
+$ history | tail -n 2 | head -n 1 >>solutions 
+$ ps -e -o etimes=,comm= ketimes | tail -n 10
+$ ps -e -o pid=,comm= kvsz | tail -n 1
+
+$ ps -g root -o drs= | xargs | tr ' ' '+' | bc
+$ ps -g root -o drs= | awk '{sum += $0+0} END {print sum}'
+
+$ ps -e -o euser=,comm= | grep "vim$" | sort | uniq -c | xargs -L 1 | cut -d ' ' -f 1,2 | awk '$1 >= 2 {print $2}'
+
+$ ps -e -o euser=
+ 4153  2024-03-30 12:47:09 comm -1 -3 <(who | cut -d ' ' -f 1 | sort | uniq) <(ps -e -o euser= | sort | uniq)

@@ -1,0 +1,9 @@
+$ grep -rc 'c' . | awk -v 'FS=:' 'BEGIN {count = 0 } {count += $2} END {print count}'
+
+// 2016-SE-02
+// Това реално е като group by в sql
+$ ps -e -o user=,pid=,rss=
+$ ps -e -o user=,pid=,rss= | awk '{counts[$1] += $3} END { for(key in counts) {print key,counts[key]}}'
+$ stat --printf '%g %i' file.txt
+
+// 2016-SE-04

@@ -156,14 +156,22 @@ $ cat /etc/passwd | cut -d ':' -f 4 | awk -v my_group="$(grep -E "^$(whoami):" /
 $ find /usr -name '*.sh' -type f -exec head -n 1 {} ';' | grep -E --color '#![[:blank:]]*(\/[a-zA-Z0-9._-]*)*' | sed -E 's/#![[:blank:]]*((\/[a-zA-Z0-9._-]*)*).*/\1/' | sort -r | uniq -c | head -n 1
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-8700.txt <==
+$ history | tail -n 2 | tail -n 1 >>all_pipe_solutions 
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9000.txt <==
+$ touch eternity
+$ find ~ -mindepth 1 -maxdepth 2 -type f -mmin -15 -printf '%T@ %p\n' >>eternity 
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9050.txt <==
+$ cp /srv/fmi-os/exercises/data/population.csv ~
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9051.txt <==
+$ cat ~/population.csv | grep -E '^([^,]+,){2}2008,[0-9]+$' | awk -F ',' 'BEGIN {sum=0} {sum += $4} END {print sum}'
+$ cat ~/population.csv | grep -E '^([^,]+,){2}2016,[0-9]+$' | awk -F ',' 'BEGIN {sum=0} {sum += $4} END {print sum}'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9052.txt <==
+$ cat ~/population.csv | grep -E '^Bulgaria' | cut -d ',' -f 3,4 | sort -n -r -t ',' -k 2,2 | head -n 1 | cut -d ',' -f 1 
+$ cat ~/population.csv | grep -E '^Bulgaria' | awk -F ',' 'BEGIN {max_num=-1;max_year=0} $4 > max_num{max_num=$4; max_year=$3} END{print max_year}'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9053.txt <==
 
@@ -192,3 +200,4 @@ $ find /usr -name '*.sh' -type f -exec head -n 1 {} ';' | grep -E --color '#![[:
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9500.txt <==
 
 
+ 4154  2024-03-30 11:36:00 cat ~/population.csv | grep --color -E '((([^,]+)|(".*")),){2}2016,([^,]+)'
