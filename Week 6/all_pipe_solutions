@@ -174,30 +174,42 @@ $ cat ~/population.csv | grep -E '^Bulgaria' | cut -d ',' -f 3,4 | sort -n -r -t
 $ cat ~/population.csv | grep -E '^Bulgaria' | awk -F ',' 'BEGIN {max_num=-1;max_year=0} $4 > max_num{max_num=$4; max_year=$3} END{print max_year}'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9053.txt <==
+$ cat ~/population.csv | grep --color -E '((([^,]+)|(".*")),){2}2016,([^,]+)'
+$ cat population.csv | grep -E --color '((".*"|[^,]+),){2}2016,[0-9]+' | sort -t ',' -k 4,4 | head -n 
+$ cat population.csv | grep -E --color '((".*"|[^,]+),){2}2016,[0-9]+' | sort -t ',' -k 4,4 | tail -n 1
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9054.txt <==
+$ cat population.csv | grep -E --color '((".*"|[^,]+),){2}1969,[0-9]+' | sort -t ',' -k 4,4 | head -n 42 | tail -n 1 | sed -E 's/^((".*"|[^,]+)),((".*"|[^,]+)),.*,([0-9]+)$/\1 \5/'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9100.txt <==
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9101.txt <==
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9102.txt <==
+$ find . -type f | sed -E 's/^.* - (.*) \(.*\)\.ogg/\1/'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9103.txt <==
+$ find . -type f | grep -E '\.ogg$' |  sed -E 's/^.* - (.*) \(.*\)\.ogg/\L\1/' | tr ' ' '_' | sort
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9104.txt <==
+$ find . -type f | grep -E '\.ogg$' |  sed -E 's/^.\/(.*) - (.*) \((.*), (.*)\)\.ogg$/\4 \3/' | sort -n | cut -d ' ' -f 2
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9105.txt <==
+$ find . -type f | grep -E '.\/(Beatles|Pink) - ' | wc -l
+$ find . -type f | grep -E '.\/(Beatles|Pink) - ' | sed -E 's/\.\/(.*) - (.*) \(.*\)\.ogg/\1: \2/'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9106.txt <==
+$ find . -type f | grep -E '\.ogg$' |  sed -E 's/^\.\/(.*) - .* \(.*\)\.ogg$/\1/' | tr -d '[:blank:]' | sort | uniq | xargs mkdir 
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9200.txt <==
+$ find /etc -type f -printf '%s %p\n' 2>/dev/null | sort -n | tail -n 1 
+$ find . -mindepth 1 -perm $(stat --printf='%a' /etc/ssh/moduli) -exec stat '{}' ';'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9300.txt <==
+$ grep --color -E '^[a-z0-9_]([a-z0-9_-]+(\.[a-z0-9_-])?)*@[a-z0-9]+([a-z0-9_-]+(\.[a-z0-9_-])?)*$' all_emails.txt | wc -l
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9400.txt <==
+$ cat emp.data | awk '{ for(i = NF; i > 0; i--) {printf "%s ", $i}; print }'
 
 ==> /srv/fmi-os/exercises/03.pipes/03-b-9500.txt <==
 
-
- 4154  2024-03-30 11:36:00 cat ~/population.csv | grep --color -E '((([^,]+)|(".*")),){2}2016,([^,]+)'
