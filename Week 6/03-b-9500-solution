@@ -18,42 +18,45 @@ current_disk=""
 current_temperature=""
 max_temperature=""
 
+function reset_variables(){
+	current_disk=""
+	current_temperature=""
+	max_temperature=""
+}
+
+function print_current_drive(){
+	if [[ -n "${current_array}" && -n "${current_disk}" &&  -n "${current_temperature}" \
+		&& -n "${max_temperature}" ]]; then
+		echo "${current_array}""-""${current_disk}"" ""${current_temperature}"" ""${max_temperature}"
+	fi
+}
+
 drive_regex='^\s*physicaldrive (([0-9a-zA-Z]+:)*[0-9a-zA-Z]+)$'
 key_value_regex='^\s*[^:]*:'
 curr_temp_regex='^\s*Current Temperature\s*\(C\):\s*([0-9]+)\s*$'
 max_temp_regex='^\s*Maximum Temperature\s*\(C\):\s*([0-9]+)\s*$'
 
-cat ~/ssa-input.txt | while read line; do
+while read line; do
 
 	# The current line refers to Array A, Array B...
 	if [[ "${line}" =~ ^\s*Array\ [A-Z]\s*$ ]]; then
-		echo "entered array loop"
-		if [[ "${current_array}" != "" ]]; then
-			echo "${current_array}""-""${current_disk}"" ""${current_temperature}"" ""${max_temperature}"
-		fi
-		current_array="$(echo ${line} | sed -E 's/^\s*Array ([A-Z])/\1/')"
-		echo "Current array: ""${current_array}"
+		print_current_drive
+		reset_variables
+		current_array="$(echo ${line} | awk '{print $2}')"
 
-	# The current line refers to physicaldrive ...
+	# The current line refers to physicaldrive 
 	elif echo "${line}" | grep -E "${drive_regex}" &>/dev/null; then
+		print_current_drive
 		current_disk="$(echo ${line} | sed -E "s/${drive_regex}/\1/")"
-		# echo "Current disk: ""${current_disk}"
 	# The current line refers to a key value pair
 
 	elif echo "${line}" | grep -E "${key_value_regex}" &>/dev/null; then
 		if echo "${line}" | grep -E "${curr_temp_regex}" &>/dev/null; then
 			current_temperature="$(echo ${line} | sed -E "s/${curr_temp_regex}/\1/")"	
-			# echo "Current temperature: ""${current_temperature}"
 		fi
 		if echo "${line}" | grep -E "${max_temp_regex}" &>/dev/null ; then
 			max_temperature="$(echo ${line} | sed -E "s/${max_temp_regex}/\1/")"	
-			# echo "Max temperature: ""${max_temperature}"
 		fi
 	fi
-done
-
-echo "Current array: ""${current_array}"
-if [[ "${current_array}" != "" ]]; then
-	echo 'entered outside loop'
-	echo "${current_array}""-""${current_disk}"" ""${current_temperature}"" ""${max_temperature}"
-fi
+done < ~/ssa-input.txt
+print_current_drive
