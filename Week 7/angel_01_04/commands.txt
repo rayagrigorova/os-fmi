@@ -1,0 +1,5 @@
+$ ps -u $(whoami)
+$ ps -u $(whoami) -o cmd,pid
+$ ps -u $(whoami) -o cmd,pid,'%mem'
+$ ps -u $(whoami) -o cmd,pid,'%mem',ppid
+$ ps -u $(whoami) -o cmd=,pid=,'%mem'=,ppid=

@@ -1,0 +1,19 @@
+==> /srv/fmi-os/exercises/04.processes/04-a-5000.txt <==
+$ ps -e -o etimes=,comm= | sort -n -r | head | awk '{ print $2 }'
+
+==> /srv/fmi-os/exercises/04.processes/04-a-6000.txt <==
+$ ps -e -o vsz=,pid=,comm= | sort -n -r | head -n 1 | tr -s ' ' | cut -d ' ' -f 2,3
+
+==> /srv/fmi-os/exercises/04.processes/04-a-6300.txt <==
+$ ps -e -o etimes=,comm= | sort -n -r | head -n 1 | awk '{ print $2 }'
+
+==> /srv/fmi-os/exercises/04.processes/04-b-5000.txt <==
+$ ps -g root -o rss= | awk 'BEGIN {sum=0} {sum += $1} END {print sum}'
+
+==> /srv/fmi-os/exercises/04.processes/04-b-6100.txt <==
+script solution 
+
+==> /srv/fmi-os/exercises/04.processes/04-b-6200.txt <==
+==> /srv/fmi-os/exercises/04.processes/04-b-7000.txt <==
+==> /srv/fmi-os/exercises/04.processes/04-b-8000.txt <==
+==> /srv/fmi-os/exercises/04.processes/04-b-9000.txt <==
