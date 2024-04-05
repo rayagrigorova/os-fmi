@@ -1,0 +1,4 @@
+$ cd 5MI0600167/
+$ cp /tmp/66666.tar.xz .
+$ tar -xf 66666.tar.xz 
+$ mv 66666 5MI0600167
