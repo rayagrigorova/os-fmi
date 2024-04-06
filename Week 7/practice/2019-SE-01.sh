@@ -13,7 +13,5 @@ if [[ ! -z "${INVALID_LINES}" ]]; then
 fi
 
 MAX_DIST_TYPE="$(cat "${1}" | tail -n +2 | sort -r -n -t ';' -k 3 | head -n 1 | cut -d ';' -f 2 )"
-echo "${MIN_DIST}"
-echo "${MAX_DIST_TYPE}"
-cat "${1}" | tail -n +2 | grep -E --color "^[a-zA-Z0-9_[:blank:]-]+;${MAX_DIST_TYPE};([0-9]+[,\.]?[0-9]*;){4}[0-9]+[,\.]?[0-9]*\$" "${1}" | sort -n -t ';' -k 3 |  cut -d ';' -f 1,4 | head -n 1 
+cat "${1}" | tail -n +2 | grep -E --color "^[a-zA-Z0-9_[:blank:]-]+;${MAX_DIST_TYPE};([0-9]+[,\.]?[0-9]*;){4}[0-9]+[,\.]?[0-9]*\$" "${1}" | sort -n -t ';' -k 3 |  cut -d ';' -f 1,4 | head -n 1 | tr ';' '\t'
 
