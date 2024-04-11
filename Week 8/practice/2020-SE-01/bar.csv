@@ -1,0 +1,3 @@
+hostname,phy,vlans,hosts,failover,VPN-3DES-AES,peers,VLAN Trunk Porst,license,SN,key
+border-lozenets,4,16,Unlimited,Active/Active,Disabled,16,4,PIX5350007,0xd11b3d48
+loz-gw,Plus,8,20,Unlimited,Active/Standby,Enabled,25,8,ASA 5505 Security Plus,JMX00000000,0e268e0c
