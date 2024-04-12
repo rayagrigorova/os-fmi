@@ -1,0 +1,9 @@
+Alsatian
+Dog
+Dog->Alsatian
+Animal
+Animal->Dog
+Object
+Object->Dog
+Thread
+Thread->Dog
