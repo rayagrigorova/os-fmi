@@ -1,0 +1,6 @@
+10514  2024-04-15 10:33:24 gcc -std=c99 -Werror -Wall -Wpedantic -Wextra -o foo main.c
+10521  2024-04-15 10:35:13 cp ~velin/Makefile .
+10527  2024-04-15 10:40:45 make
+10529  2024-04-15 10:42:04 make clean
+10531  2024-04-15 10:42:08 make 
+10548  2024-04-15 10:45:10 xxd tempfile 
