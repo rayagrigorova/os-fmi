@@ -36,6 +36,8 @@ int main(int argc, char* argv[]) {
 					err(4, "Error when writing to file");
 				}
 			}
+			close(fd);
+			return 0;
 		}
 		else {
 			// Wait for the child process to finish so that 
@@ -53,4 +55,5 @@ int main(int argc, char* argv[]) {
 			}
 		}
 	}
+	close(fd);
 }

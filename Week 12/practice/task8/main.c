@@ -30,6 +30,7 @@ int main(int argc, char* argv[]) {
 		if (write(fd, string_to_save, strlen(string_to_save)) < 0) {
 			err(4, "Error when using write on %s", argv[1]);
 		}
+		close(fd);
 	}
 	else {
 		int status;
@@ -60,6 +61,10 @@ int main(int argc, char* argv[]) {
 			}
 
 		}
+		if (read_result < 0) {
+			err(99, "read");
+		}
+		close(fd);
 		if (write(1, "\n", 1) < 0) {
 			err(10, "Error when using write()");
 		}
