@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
 			if (write(1, "Process number: ", 16) < 0) {
 				err(6, "Error when using write()");
 			}
-			if (write(1, &process_number, 1) < 0) {
+			if (write(1, &process_number, strlen(process_number)) < 0) {
 				err(6, "Error when using write()");
 			}
 			if (write(1, " Exit code: ", 12) < 0) {
