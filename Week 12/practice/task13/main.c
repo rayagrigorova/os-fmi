@@ -59,8 +59,10 @@ int main(int argc, char* argv[]) {
 			err(6, "Error when executing wait()");
 		}
 		if (!WIFEXITED(status) || WEXITSTATUS(status) != 0) {
-			write(1, "-1", 2);
-			exit(9);
+			if (write(1, "-1", 2) < 0){
+				err(17, "write");
+			}
+			exit(0);
 		}
 	}
 	write_to_stdout(wait_res);	
