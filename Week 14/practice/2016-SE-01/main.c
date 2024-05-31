@@ -28,6 +28,7 @@ int main(int argc, char* argv[]) {
 		close(pipefd[0]);
 		// Make the file descriptor 1 point to the pipe's write end 
 		if (dup2(pipefd[1], 1) < 0) { err (7, "dup"); }
+		close(pipefd[1]);
 		execlp("cat", "cat", argv[1], (char*) NULL);
 		err(3, "execlp");
 	}
@@ -38,6 +39,7 @@ int main(int argc, char* argv[]) {
 	// make fd 0 (stdin) point to the 
 	// read end of the pipe 
 	if (dup2(pipefd[0], 0) < 0) { err (7, "dup"); }
+	close(pipefd[0]);
 	execlp("sort", "sort", (char*) NULL);
 	err(3, "execlp");
 }
