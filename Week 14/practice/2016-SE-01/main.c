@@ -1,45 +1,45 @@
-#include <err.h> 
-#include <stdio.h> 
-#include <sys/wait.h> 
-#include <unistd.h> 
-#include <fcntl.h> 
+#include <stdint.h>
+#include <stdio.h>
+#include <err.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 int main(int argc, char* argv[]) {
 	if (argc != 2) {
-		errx(1, "Usage: %s <text_file_name>", argv[0]);
+		errx(1, "Usage: %s <binary_file_name>", argv[0]);
 	}
-	int fd = open(argv[1], O_RDONLY);
-	if (fd < 0) { err(2, "Can't open %s", argv[1]); } 
+	// Algorithm: go through the file once and count bytes using counting sort 
+	// Then, lseek to its beginning and start overwriting all of its bytes with the counted symbols 
+	int fd = open(argv[1], O_RDWR);
+	if (fd < 0) { err(2, "open"); }
 
-	// Use cat and then pipe it to sort 
-	// Create a child process that executes cat 
-	// Then the parent executes sort on the result 
-	// The output of cat is linked to a pipe that the 
-	// parent process reads from
-	int pipefd[2];
-	if (pipe(pipefd) < 0) {
-		err(7, "pipe");
+	uint32_t arr[256];
+	for(int i = 0; i < 256; i++) {
+		arr[i] = 0;
 	}
-	pid_t fork_res = fork();
-	if (fork_res < 0) { err(3, "fork"); } 
-	if (fork_res == 0) {
-		// The child writes to the pipe, 
-		// so close the read end 
-		close(pipefd[0]);
-		// Make the file descriptor 1 point to the pipe's write end 
-		if (dup2(pipefd[1], 1) < 0) { err (7, "dup"); }
-		close(pipefd[1]);
-		execlp("cat", "cat", argv[1], (char*) NULL);
-		err(3, "execlp");
-	}
-	// Do I have to use wait here? Since read() is a blocking operation, I don't think so but...
 
-	// The parent will read, so close fd for writing
-	close(pipefd[1]);
-	// make fd 0 (stdin) point to the 
-	// read end of the pipe 
-	if (dup2(pipefd[0], 0) < 0) { err (7, "dup"); }
-	close(pipefd[0]);
-	execlp("sort", "sort", (char*) NULL);
-	err(3, "execlp");
+	int read_res;
+	uint8_t buff;
+	while((read_res = read(fd, &buff, sizeof(buff))) > 0) {
+		arr[(int)buff]++;
+	}
+	if (read_res < 0) {
+		err(3, "read");
+	}
+	if (lseek(fd, 0, SEEK_SET) < 0) {
+		err(4, "lseek");
+	}
+// 	for(int i = 0; i < 256; i++) {
+// 		if (arr[i] > 0) {
+// 			printf("Char: %c count: %d\n", i, arr[i]);
+// 		}
+// 	}
+	for(int i = 0; i < 256; i++) {
+		uint8_t to_write = (uint8_t)i;
+		for(uint32_t j = 0; j < arr[i]; j++) {
+			if(write(fd, &to_write, sizeof(to_write)) < 0) {
+				err(5, "write");
+			}
+		}
+	}
 }
