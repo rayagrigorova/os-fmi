@@ -127,20 +127,20 @@ int main(int argc, char* argv[]) {
 	file_info[4] = 8;
 
 	int fd_affix = open_file_for_reading(argv[1]);
+	validate_file(fd_affix, file_info[0]);
 
-	validate_file(fd_affix, file_info[fd_affix - 3]);
 	int fd_postfix = open_file_for_reading(argv[2]);
+	validate_file(fd_postfix, file_info[1]);
 
-	validate_file(fd_postfix, file_info[fd_postfix - 3]);
 	int fd_prefix = open_file_for_reading(argv[3]);
+	validate_file(fd_prefix, file_info[2]);
 
-	validate_file(fd_prefix, file_info[fd_prefix - 3]);
 	int fd_infix = open_file_for_reading(argv[4]);
+	validate_file(fd_infix, file_info[3]);
 
-	validate_file(fd_infix, file_info[fd_infix - 3]);
 	int fd_suffix = open_file_for_reading(argv[5]);
+	validate_file(fd_suffix, file_info[4]);
 
-	validate_file(fd_suffix, file_info[fd_suffix - 3]);
 	int fd_crucifixus = open(argv[6], O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (fd_crucifixus < 0) { err(9, "Coudln't open result file"); }
 
