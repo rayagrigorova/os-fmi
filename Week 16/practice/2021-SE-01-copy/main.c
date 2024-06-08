@@ -1,4 +1,3 @@
-// This version of the program works fine
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -6,37 +5,27 @@
 #include <string.h>
 #include <err.h>
 
-// This function parses a byte and converts it to 16 bits 
-// that are in Manchester code (using 2 uint8_t-s) 
-// This function also writes the result to a file
+// This function translates a given byte to manchester code 
+// and writes the result to a file
 void handle_byte(uint8_t byte, int fd_out) {
-	// Create two uint8_t-s for the result 
-	uint8_t res[2];
-	res[0] = 0;
-	res[1] = 0;
+	// Difference between the two provided solutions 
+	uint16_t res = 0;
 
-	uint8_t one_mask = 2; // 10
-	uint8_t zero_mask = 1; // 01
+	uint16_t one_mask = 2;
+	uint16_t zero_mask = 1;
 
 	// Read the most significant bit first 
 	uint8_t mask = 1 << 7;	
 
 	for(int i = 0; i < 8; i++) {
-		// Start by left shifting to avoid an exess left shift 
-		// after the last iteration of the loop. The first left shift, of course,
-		// will do nothing.
-		res[i / 4] <<= 2;
-		// Read the current bit
+		res <<= 2;
 		uint8_t current_bit = mask & byte;
-		// Proceed to the bit of the next highest significance 
 		mask >>= 1;
 		if (current_bit > 0) { 
-			// Set the last 2 bits to 10
-			res[i / 4] |= one_mask;
+			res |= one_mask;
 		}
 		else {
-			// Set the last 2 bits to 01
-			res[i / 4] |= zero_mask;
+			res |= zero_mask;
 		}
 	}
 	if (write(fd_out, &res, sizeof(res)) < 0) { err(8, "write"); }
