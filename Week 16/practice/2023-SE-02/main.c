@@ -110,9 +110,6 @@ int main(int argc, char* argv[]) {
 
  	if (found_it) {
  		for(int i = 0; i < argc - 1; i++) {
- 			// Should I first send sigterm to all 
- 			// processes and then use wait() or 
- 			// should I wait() after each sigterm?
  			if (kill(pids[i], SIGTERM) < 0
  				&& errno != ESRCH) {
  				// ESRCH is an error for when the process 
@@ -122,13 +119,18 @@ int main(int argc, char* argv[]) {
  				free(pids);
  				err(26, "kill");	
  			}
+ 			// Right after kill, wait() the child 
+			if(wait(NULL) < 0) {
+				free(pids);
+				err(26, "wait");
+			}
  		}
- 		for(int i = 0; i < argc - 1; i++) {
- 			if(wait(NULL) < 0) {
- 				free(pids);
- 				err(26, "wait");
- 			}
- 		}
+ // 		for(int i = 0; i < argc - 1; i++) {
+ // 			if(wait(NULL) < 0) {
+ // 				free(pids);
+ // 				err(26, "wait");
+ // 			}
+ // 		}
  		free(pids);
  		exit(0);
  	}
