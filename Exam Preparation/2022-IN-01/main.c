@@ -42,30 +42,42 @@ int main(int argc, char* argv[]) {
 
 	// Check the headers. Also, the number of elements in
 	// the list file should be <= the number of elements in the data file 
+	// (since each position in list defines an offset in data.bin)
 	// Check if the variable 'count' actally correspons 
 	// to the numbers of elements in the two files 
 	struct header header_list;	
 	struct header header_data;	
+	struct header header_out;	
+
+	uint16_t magic = 0x5A4D;
 
 	if (read(fd_list, &header_list, sizeof(struct header)) < 0) { err(4, "read"); }
 	if (read(fd_data, &header_data, sizeof(struct header)) < 0) { err(4, "read"); }
-	// printf("%d\n", header_list.count);
-	// printf("%d\n", header_data.count);
 
-	uint16_t magic = 0x5A4D;
+	// Check magic number
 	if (header_list.magic != magic || header_data.magic != magic) { errx(8, "format magic"); }
+
+	// Check if the number of elements is the same as the one in count 
 	if ((size_list - 8) / 2 != header_list.count 
 			|| (size_data - 8) / 4 != header_data.count) {
-			// printf("%d\n", (int)(size_list - 8) / 2);
-			// printf("%d\n", (int)(size_data - 8) / 4);
-			errx(8, "format count");
+		errx(8, "format count");
 	}
+	// The number of elements in list should be <= the number of elements in the data file
 	if (header_list.count > header_data.count) {
 		errx(8, "format sizes of list data");
 	}
+	// Check filetypes 
 	if (header_list.filetype != 1 
 			|| header_data.filetype != 2) {
 		errx(8, "format filetype");
+	}
+
+	// Initialize the header for out.bin
+	header_out.magic = magic;
+	header_out.count = header_list.count;
+	header_out.filetype = 3;
+	if (write(fd_out, &header_out, sizeof(struct header)) < 0) {
+		err(30, "write");
 	}
 
 	// Algorithm: find the biggest offset in output.bin as 
@@ -78,32 +90,35 @@ int main(int argc, char* argv[]) {
 	int read_res;
 	uint16_t list_buff;
 	uint16_t MAX_OFFSET = 0;
+	// Find the max offset that is written in the list file 
+	// so that we can lseek in the output file freely
 	while((read_res = read(fd_list, &list_buff, sizeof(list_buff))) > 0) {
 		if (list_buff > MAX_OFFSET) {
-			// printf("max offset %d\n", MAX_OFFSET);
 			MAX_OFFSET = list_buff;
 		}
 	}
 	if (read_res < 0) { err(11, "read"); }
+	// Return to the beginning of the data section in data.bin
 	if (lseek(fd_list, 8, SEEK_SET) < 0) { err(18, "lseek"); }
 
+	// Fill the out file with 0
 	uint64_t zero = 0;
-	// printf("max offset %d\n", MAX_OFFSET);
 	for(uint16_t i = 0; i < MAX_OFFSET; i++) {
-		printf("loop\n");
 		if(write(fd_out, &zero, sizeof(zero)) < 0) {
 			err(21, "write");
 		}
 	}
-	
+
+	// Read a uint32_t from the list file, write a uin64_t to output file
 	uint32_t data_buff;
 	uint64_t out_write;
 	while((read_res = read(fd_list, &list_buff, sizeof(list_buff))) > 0) {
+		// We are reading list.bin and data.bin in parallel
 		if (read(fd_data, &data_buff, sizeof(data_buff)) < 0) {
 			err(19, "read");
 		}
-		printf("data buff %d\n", data_buff);
-		if (lseek(fd_out, list_buff * sizeof(uint64_t), SEEK_SET) < 0) {
+		// Lseek to the <list_buff> element in out.bin (skipping the header)
+		if (lseek(fd_out, list_buff * sizeof(uint64_t) + 8, SEEK_SET) < 0) {
 			err(23, "lseek");
 		}
 
@@ -119,3 +134,4 @@ int main(int argc, char* argv[]) {
 	close(fd_data);
 	close(fd_out);
 }
+
